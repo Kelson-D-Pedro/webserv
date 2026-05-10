@@ -1,73 +1,53 @@
-_This project has been created as part of the 42 curriculum by kpedro, mebo, jmiguel._
+# 🌐 Webserv — C++ HTTP Server (42 Luanda)
 
-# 🌐 Webserv
+_Group project by kpedro, mebo, jmiguel._
 
-An HTTP server implemented in **C++98**, inspired by the **NGINX** architecture.  
-This project is part of the **42 Luanda** curriculum, and the objective is to understand how the HTTP protocol works, from **non-blocking sockets** to **CGI** and **file uploads**.
-
----
-
-## 📖 Table of Contents
-- [Description](#-description)
-- [Features](#-features)
-- [Instructions](#-instructions)
-- [Compilation](#-compilation)
-- [Execution](#-execution)
-- [Configuration](#-configuration)
-- [Testing](#-testing)
-- [Project Rules](#-project-rules)
-- [Bonus](#-bonus)
-- [Authors](#-authors)
-- [Resources](#-resources)
+## Why this project is relevant for C++ backend roles
+This repository demonstrates hands-on backend systems engineering in C++:
+- Non-blocking socket programming and I/O multiplexing (`epoll`)
+- HTTP/1.1 request parsing and response generation
+- Multi-client server behavior with keep-alive handling
+- CGI process execution and inter-process communication basics
+- Robustness work: protocol correctness, memory leak fixes, status-code handling, and file descriptor flags (`fcntl`)
 
 ---
 
-## 📝 Description
-**Webserv** is an HTTP server written in **C++98**, capable of serving static pages, processing forms, executing scripts via **CGI**, and managing multiple simultaneous connections in a non-blocking manner.
+## My contribution summary (Kelson Pedro / `kpedro`)
+- **52 commits** between **2025-09-16** and **2026-01-20**
+- Core work delivered in:
+  - Initial project structure and repository organization
+  - `Socket` and multiplexing flow for multiple connections
+  - HTTP methods: `GET`, `POST`, `DELETE`, plus upload paths
+  - `Request` / `Response` implementation and protocol fixes
+  - Stability improvements (keep-alive, parsing corrections, leak fixes, CGI status handling)
+  - Early CGI integration
 
-This project helps you understand deeply:
-- How the **HTTP/1.1** protocol works.
-- **TCP/IP sockets** and low-level programming.
-- Managing multiple clients with **poll()** (or equivalent).
-- Configuration structure inspired by **NGINX**.
+---
+
+## Technical highlights
+- HTTP methods: **GET / POST / DELETE**
+- Static file serving and directory autoindex
+- File upload and file deletion endpoints
+- Config-driven routing inspired by NGINX blocks
+- Custom error pages (`404`, `403`, `405`, `500`, etc.)
+- CGI execution (Python/Bash)
+- Multi-port and multi-server configuration support
 
 ---
 
-## ⚙️ Features
-✔️ Support for **multiple ports** and simultaneous connections.  
-✔️ **GET**, **POST**, and **DELETE** HTTP methods.  
-✔️ Serve static files (HTML, CSS, images).  
-✔️ **File uploads** via POST.  
-✔️ **File deletion** with DELETE.  
-✔️ **Custom error pages** (404, 403, 500, etc).  
-✔️ **Autoindex** (directory listing).  
-✔️ Script execution via **CGI** (Python, Bash).  
-✔️ Configuration inspired by **nginx.conf**:
-   - `listen`, `server`, `location`, `root`, `index`  
-   - Request size limit  
-   - HTTP redirects  
-   - Upload directories  
-
----
-## Instructions 
-## 🛠️ Compilation
-The project must be compiled with a **Makefile** containing the rules:
+## Build
 ```bash
-make        # compiles the project
-make clean  # removes object files
-make fclean # removes object files and final binary
-make re     # recompiles from scratch
+make
 ```
 
-Mandatory compilation flags:
-```
+Build flags:
+```bash
 -Wall -Wextra -Werror -std=c++98
 ```
 
 ---
 
-## ▶️ Execution
-Run the server with:
+## Run
 ```bash
 ./webserv [config_file]
 ```
@@ -77,119 +57,55 @@ Example:
 ./webserv config/default.conf
 ```
 
-If no configuration file is provided, the program can use a **default config**.
-
 ---
 
-## 📂 Configuration
-The configuration file is inspired by **NGINX**, supporting blocks like:
-
-```nginx
-server {
-    error_page 404 ./www/errors/404.html;
-    listen 8080;
-    root ./www;
-    index index.html;
-
-    location /uploads {
-        allow_methods POST DELETE;
-        upload_path ./www/uploads;
-    }
-}
-```
-
-**Supported directives:**
-- `listen` - IP address and port to listen on
-- `server_name` - Server name (virtual host)
-- `root` - Root directory for served files
-- `index` - Default index file
-- `error_page` - Custom error pages
-- `client_max_body_size` - Maximum request body size
-- `location` - URL-based routing rules
-- `allow_methods` - Allowed HTTP methods per location
-- `autoindex` - Enable/disable directory listing
-- `upload_path` - Directory for file uploads
-- `return` - HTTP redirects
-- `cgi_ext` - CGI file extension
-- `cgi_path` - Path to CGI interpreter
-
----
-
-## 🧪 Testing
-Recommended tools:
-- `curl` → test basic requests
-- `telnet` → debug HTTP responses
-- `ab`, `wrk`, `hey`, `siege` → stress testing
-- Web browser → validate real behavior
-
-Examples:
+## Automated validation
+Project includes an end-to-end script:
 ```bash
-curl http://localhost:8080/
-curl -X POST -F "file=@test.txt" http://localhost:8080/uploads
-curl -X DELETE http://localhost:8080/uploads/test.txt
+./run_tests.sh
 ```
 
----
-
-## 📏 Project Rules
-- Implemented in **C++98**.  
-- Only **1 call to epoll()** to manage all I/O.  
-- Never block I/O (non-blocking).  
-- Only use `fork()` for CGI.  
-- No external libraries (Boost, etc).  
-- The program **must not crash** under any circumstances.  
-- One `epoll()` to monitor all I/O between clients and server.
+It validates key flows such as:
+- static routes and missing file behavior
+- redirects and headers
+- CGI GET/POST behavior
+- upload limits and `413` handling
+- `DELETE` behavior for uploaded files
+- autoindex behavior
+- method restriction and `Allow` headers
 
 ---
 
-## 🎁 Bonus
-- Cookies and session management.  
-- Support for multiple CGI types (Python and Bash).  
-- Advanced HTTP redirects.  
-- **HTTP/1.1 Keep-Alive** support.  
+## Fit analysis for the Tradeweb C++ Developer opportunity
+### Strong match
+- **C++ backend engineering mindset:** built and maintained a server in C++ with clear modular classes.
+- **Networking fundamentals:** low-level sockets, multiplexed I/O, and protocol-oriented debugging.
+- **Problem-solving and ownership:** direct work on stability and protocol correctness issues.
+- **Team workflow:** real multi-contributor project with Git history and sustained delivery.
+- **Linux development:** practical implementation and testing on Linux.
+
+### Partial match / growth areas
+- **Modern C++:** project is C++98 (42 requirement), while role mentions modern C++ patterns/templates.
+- **Multithreading:** architecture is event-driven/non-blocking, not thread-based concurrency.
+- **Distributed/high-throughput optimization depth:** solid foundation, but limited explicit production-scale benchmarking evidence in the repo.
+- **Windows exposure:** current implementation and tooling are Linux-focused.
+
+### Positioning recommendation
+Use this project in LinkedIn/CV as **proof of core systems capability**:
+1. C++ network programming fundamentals  
+2. Protocol-level debugging and reliability work  
+3. Ability to build backend services from zero  
+
+Then complement it with 1–2 focused side projects in:
+- modern C++ (C++17/20, templates, RAII-heavy design),
+- multithreading / lock-free or queue-based design,
+- performance benchmarking and profiling.
 
 ---
 
-## 👥 Authors
-- Kelson Pedro (kpedro)
-- Melzira Ebo (mebo)
-- Joisson Miguel (jmiguel)
+## Authors
+- Kelson Pedro (`kpedro`)
+- Melzira Ebo (`mebo`)
+- Joisson Miguel (`jmiguel`)
 
 42 Luanda – 2026
-
----
-
-## 📚 Resources
-
-### HTTP Protocol
-- [MDN Web Docs - HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP)
-- [RFC 7230 - HTTP/1.1 Message Syntax](https://tools.ietf.org/html/rfc7230)
-- [RFC 7231 - HTTP/1.1 Semantics](https://tools.ietf.org/html/rfc7231)
-
-### Networking & Sockets
-- [Beej's Guide to Network Programming](https://beej.us/guide/bgnet/)
-- [POSIX Socket Programming](https://man7.org/linux/man-pages/man7/socket.7.html)
-- [epoll Documentation](https://man7.org/linux/man-pages/man7/epoll.7.html)
-
-### CGI
-- [CGI 1.1 Specification](https://tools.ietf.org/html/rfc3875)
-- [CGI Environment Variables](https://www.tutorialspoint.com/cgi/cgi_environment.htm)
-
-### NGINX
-- [NGINX Documentation](https://nginx.org/en/docs/)
-- [NGINX Configuration Guide](https://nginx.org/en/docs/http/ngx_http_core_module.html)
-
-### Tools & Testing
-- [curl Documentation](https://curl.se/docs/)
-- [Apache Bench (ab)](https://httpd.apache.org/docs/2.4/programs/ab.html)
-- [wrk - HTTP Benchmarking Tool](https://github.com/wg/wrk)
-
-### AI Usage
-This project was developed with assistance for:
-- Code structure and architecture design (see docs/dirStruct.md)
-- Debugging non-blocking I/O operations (see file src/core/Multiplexer.cpp)
-- HTTP header parsing and validation (with the function parseRequest() located at src/http/Request.cpp)
-- CGI environment setup and communication (execute() located at src/cgi/CgiHandler.cpp)
-- Configuration file parsing logic (with the function tokenizer() located at src/config/Tokenizer.cpp, and verify_parse_data() located at src/config/VerifingParseData.cpp)
-- Error handling and edge cases (status errors responses with functions that handle methods, located at src/http/Method.cpp, and the function Autoindex::generate
- located at src/http/Autoindex.cpp)
