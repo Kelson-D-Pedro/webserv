@@ -1,6 +1,0 @@
-{
-  "timestamp": "2026-05-10T09:16:33+00:00",
-  "passed": 19,
-  "failed": 0,
-  "logs": ["/home/runner/work/webserv/webserv/test_logs/robusto.log", "/home/runner/work/webserv/webserv/test_logs/autoindex.log", "/home/runner/work/webserv/webserv/test_logs/badcgi.log"]
-}
