@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>WebServer do Çinco Elengo</title>
+
+  <style>
+    /* ------------------ RESET & BASE ------------------ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(120deg, #1e1e2f, #2c2c44);
+      color: #f1f1f1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ------------------ NAVBAR ------------------ */
+    .navbar {
+      width: 100%;
+      padding: 20px 40px;
+      background: #141421;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #2e2e44;
+    }
+
+    .navbar h2 {
+      color: #ffffff;
+      font-size: 24px;
+      letter-spacing: 0.5px;
+    }
+
+    .navbar small {
+      opacity: 0.7;
+      font-size: 15px;
+    }
+
+    /* ------------------ HERO CONTENT ------------------ */
+    .container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .hero {
+      max-width: 650px;
+    }
+
+    .hero h1 {
+      font-size: 46px;
+      font-weight: 700;
+      margin-bottom: 18px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      opacity: 0.85;
+      line-height: 1.7;
+      margin-bottom: 35px;
+    }
+
+    /* ------------------ BUTTON ------------------ */
+    .login-btn {
+      padding: 14px 34px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      background: #6a5acd;
+      color: #fff;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: 0.25s;
+      font-weight: 600;
+    }
+
+    .login-btn:hover {
+      background: #7b6af5;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 22px rgba(0,0,0,0.35);
+    }
+
+    /* ------------------ FOOTER ------------------ */
+    footer {
+      text-align: center;
+      padding: 20px;
+      opacity: 0.6;
+      font-size: 14px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <h2>Çinco Elengo</h2>
+    <small>WebServer Project</small>
+  </div>
+
+  <!-- HERO SECTION -->
+  <div class="container">
+    <div class="hero">
+      <h1>Bem-vindo ao WebServer</h1>
+
+      <p>
+        Este é o ambiente oficial desenvolvido para testes de bônus
+        do projeto WebServer do Çinco Elengo.  
+      </p>
+
+      <a href="/login" class="login-btn">Entrar</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2025 Çinco Elengo — Todos os direitos reservados.
+  </footer>
+
+</body>
+</html>

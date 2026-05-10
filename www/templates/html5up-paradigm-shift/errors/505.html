@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>HTTP Version Not Supported</title>
+
+  <style>
+    /* -------- RESET -------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f1e3d, #102a52, #0c1a30);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #e8f0ff;
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* -------- ILUSTRAÇÃO CÍRCULO -------- */
+    .circle {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #4da3ff, #2e62b5, #1b3458);
+      box-shadow: 0 0 25px rgba(77, 162, 255, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 25px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .circle span {
+      font-size: 58px;
+      font-weight: 700;
+      color: #ffffff;
+      text-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+    }
+
+    /* -------- FLOAT ANIMATION -------- */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    h1 {
+      font-size: 40px;
+      margin-bottom: 10px;
+      color: #d3e3ff;
+    }
+
+    p {
+      font-size: 18px;
+      max-width: 420px;
+      opacity: 0.75;
+      line-height: 1.6;
+    }
+
+    /* -------- CAIXA DE RAZÕES -------- */
+    .reasons-box {
+      margin-top: 25px;
+      padding: 20px 25px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      border: 1px solid rgba(77, 162, 255, 0.3);
+      max-width: 500px;
+      text-align: left;
+      backdrop-filter: blur(10px);
+    }
+
+    .reasons-box h3 {
+      font-size: 18px;
+      color: #4da3ff;
+      margin-bottom: 12px;
+    }
+
+    .reasons-box ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .reasons-box li {
+      font-size: 15px;
+      padding: 8px 0;
+      padding-left: 24px;
+      position: relative;
+      opacity: 0.85;
+      line-height: 1.5;
+    }
+
+    .reasons-box li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #4da3ff;
+      font-size: 20px;
+      line-height: 1.3;
+    }
+
+    /* -------- BOTÃO SIMPLES -------- */
+    .btn {
+      margin-top: 30px;
+      padding: 12px 28px;
+      background: #3d8aff;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.25s;
+      box-shadow: 0 4px 12px rgba(61,138,255,0.4);
+    }
+
+    .btn:hover {
+      background: #5aa0ff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(61,138,255,0.5);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="circle">
+    <span>505</span>
+  </div>
+
+  <h1>HTTP Version Not Supported</h1>
+  <div class="reasons-box">
+  <h3>Possíveis causas:</h3>
+  <ul>
+    <li>Versão HTTP passada na request não implementada</li>
+  </ul>
+  </div>
+
+  <button class="btn" onclick="history.back()">Voltar</button>
+
+</body>
+</html>

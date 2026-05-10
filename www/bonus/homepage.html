@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cookie Demo – Homepage</title>
+
+  <style>
+    /* ------------------ RESET & BASE ------------------ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(120deg, #1e1e2f, #2c2c44);
+      color: #f1f1f1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* ------------------ NAVBAR ------------------ */
+    .navbar {
+      width: 100%;
+      padding: 20px 40px;
+      background: #141421;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #2e2e44;
+      animation: slideDown 0.6s ease forwards;
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+
+    @keyframes slideDown {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .navbar h2 {
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .session-info {
+      font-size: 15px;
+      opacity: 0.8;
+    }
+
+    /* ------------------ HERO ------------------ */
+    .hero {
+      text-align: center;
+      padding: 80px 20px 40px;
+      animation: fadeUp 0.8s ease forwards;
+      transform: translateY(30px);
+      opacity: 0;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      opacity: 0.85;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ------------------ CARDS GRID ------------------ */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 26px;
+      padding: 50px 60px 80px;
+    }
+
+    .card {
+      background: rgba(36, 36, 55, 0.9);
+      padding: 32px;
+      border-radius: 14px;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+      transition: 0.3s ease;
+      border: 1px solid transparent;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: cardFade 0.6s ease forwards;
+    }
+
+    /* animação dos cards em cascata */
+    .card:nth-child(1) { animation-delay: 0.2s; }
+    .card:nth-child(2) { animation-delay: 0.4s; }
+    .card:nth-child(3) { animation-delay: 0.6s; }
+    .card:nth-child(4) { animation-delay: 0.8s; }
+
+    @keyframes cardFade {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .card:hover {
+      transform: translateY(-6px) scale(1.03);
+      border-color: #6a5acd;
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.5);
+    }
+
+    .logout-btn {
+      padding: 8px 20px;
+      background: #6a5acd;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      transition: 0.25s;
+      font-size: 14px;
+    }
+
+    .icon {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 12px;
+      opacity: 0.9;
+    }
+
+    .card h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 15px;
+      opacity: 0.75;
+      line-height: 1.5;
+    }
+
+    /* ------------------ FOOTER ------------------ */
+    footer {
+      text-align: center;
+      padding: 20px;
+      opacity: 0.6;
+      font-size: 14px;
+      margin-top: auto;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <h2>Cookie demo</h2>
+
+    <div class="navbar-right">
+      <span id="session-info">Carregando...</span>
+      <button class="logout-btn" onclick="window.location.href='/'">Sair</button>
+    </div>
+  </div>
+
+  <!-- HERO SECTION -->
+  <div class="hero">
+    <h1>Bem-vindo</h1>
+    <p>
+      Este site demonstra como o seu WebServer lida com cookies, sessões e
+      persistência de dados entre requisições. Tudo apresentado de forma simples
+      e visual.
+    </p>
+  </div>
+
+  <!-- CARDS COM ÍCONES SVG -->
+  <div class="cards">
+
+    <div class="card">
+      <svg class="icon" viewBox="0 0 24 24" fill="white">
+        <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 14.93V17a1 1 0 11-2 0v-.07A8.004 8.004 0 014.07 13H4a1 1 0 110-2h.07A8.004 8.004 0 0111 4.07V4a1 1 0 112 0v.07A8.004 8.004 0 0119.93 11H20a1 1 0 110 2h-.07A8.004 8.004 0 0113 16.93z"/>
+      </svg>
+      <h3>Cookies</h3>
+      <p>O servidor atribui cookies automaticamente. Use a página para observar como eles persistem.</p>
+    </div>
+
+    <div class="card">
+      <svg class="icon" viewBox="0 0 24 24" fill="white">
+        <path d="M12 12a5 5 0 100-10 5 5 0 000 10zm-7 9a7 7 0 0114 0H5z"/>
+      </svg>
+      <h3>Sessões</h3>
+      <p>Seu session_id é atualizado e exibido no topo, mostrando o estado atual da sessão.</p>
+    </div>
+
+    <div class="card">
+      <svg class="icon" viewBox="0 0 24 24" fill="white">
+        <path d="M3 3h18v4H3V3zm0 7h18v4H3v-4zm0 7h18v4H3v-4z"/>
+      </svg>
+      <h3>Armazenamento</h3>
+      <p>Observe como valores são mantidos entre requisições e como o servidor trata o usuário.</p>
+    </div>
+
+    <div class="card">
+      <svg class="icon" viewBox="0 0 24 24" fill="white">
+        <path d="M12 7a5 5 0 100 10 5 5 0 000-10zm9 5a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+      <h3>Demo</h3>
+      <p>Uma homepage simples e clara, projetada apenas para demonstrar cookies e sessões.</p>
+    </div>
+
+  </div>
+
+  <footer>
+    © 2025 Cookie Demo — WebServer Example
+  </footer>
+
+  <script>
+    // Lê cookies e mostra o session_id
+    const cookies = document.cookie.split(";").reduce((acc, c) => {
+      const [key, value] = c.trim().split("=");
+      acc[key] = value;
+      return acc;
+    }, {});
+
+    if (cookies.session_id) {
+      document.getElementById("session-info").textContent =
+        "Session: " + cookies.session_id;
+    } else {
+      document.getElementById("session-info").textContent =
+        "Nenhuma sessão ativa";
+    }
+  </script>
+
+</body>
+</html>

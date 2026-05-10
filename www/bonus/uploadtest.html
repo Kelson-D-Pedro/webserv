@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Upload Test</title>
+
+    <style>
+        /* ------------------ RESET E BASE ------------------ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(120deg, #1e1e2f, #2c2c44);
+            color: #f1f1f1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ------------------ NAVBAR ------------------ */
+        .navbar {
+            width: 100%;
+            padding: 18px 30px;
+            background: #141421;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #2e2e44;
+        }
+
+        .navbar h2 {
+            color: #ffffff;
+            font-size: 22px;
+        }
+
+        .navbar .user-info {
+            font-size: 16px;
+            opacity: 0.8;
+        }
+
+        /* ------------------ CONTAINER ------------------ */
+        .container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .card {
+            background: #242437;
+            border-radius: 12px;
+            padding: 40px 50px;
+            width: 480px;
+            box-shadow: 0 8px 26px rgba(0, 0, 0, 0.4);
+        }
+
+        .card h1 {
+            text-align: center;
+            margin-bottom: 22px;
+            font-size: 30px;
+            font-weight: 600;
+        }
+
+        .field { 
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #ddd;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #555;
+            background: #1b1b2d;
+            color: #fff;
+            font-size: 15px;
+        }
+
+        input:focus, select:focus {
+            border-color: #6a5acd;
+            outline: none;
+            box-shadow: 0 0 4px rgba(106, 90, 205, 0.35);
+        }
+
+        /* ------------------ BOTÃO ------------------ */
+        .button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            background: #6a5acd;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: 0.2s ease-in-out;
+        }
+
+        .button:hover {
+            background: #7b6af5;
+            transform: translateY(-2px);
+        }
+
+        .note {
+            text-align: center;
+            margin-top: 12px;
+            font-size: 13px;
+            opacity: 0.75;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <h2>Login</h2>
+        <div class="user-info" id="user-info"></div>
+    </div>
+
+    <!-- CONTEÚDO -->
+    <div class="container">
+        <div class="card">
+
+            <h1>POST Test Form</h1>
+
+            <form action="/login" method="POST" enctype="multipart/form-data">
+
+                <div class="field">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Digite seu username">
+                </div>
+
+                <div class="field">
+                    <label for="role">Role</label>
+                    <select id="role" name="role">
+                        <option value="" disabled selected>Selecione uma role</option>
+                        <option value="admin">Admin</option>
+                        <option value="user">User</option>
+                        <option value="guest">Guest</option>
+                    </select>
+                </div>
+
+                <input type="submit" value="Login" class="button" />
+
+                <p class="note">Este formulário envia um POST multipart/form-data.</p>
+
+            </form>
+
+        </div>
+    </div>
+
+</body>
+</html>

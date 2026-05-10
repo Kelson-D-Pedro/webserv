@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>CGI – WebServer</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #003d82, #0055b8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+    }
+
+    .card {
+      background: #ffffff;
+      color: #333;
+      max-width: 520px;
+      padding: 2.8rem;
+      border-radius: 14px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+      text-align: center;
+      animation: fadeUp 0.6s ease forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .icon {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      color: #003d82;
+      margin-bottom: 0.8rem;
+      font-size: 1.9rem;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #666;
+      line-height: 1.7;
+      margin-bottom: 1.8rem;
+    }
+
+    .info {
+      background: #f0f4f8;
+      padding: 1.2rem;
+      border-radius: 10px;
+      font-family: "Courier New", monospace;
+      font-size: 0.9rem;
+      color: #003d82;
+      margin-bottom: 1.8rem;
+    }
+
+    .note {
+      font-size: 0.85rem;
+      color: #777;
+      opacity: 0.85;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <div class="icon">⚙️</div>
+
+    <h1>CGI – Common Gateway Interface</h1>
+
+    <p>
+      Esta rota é destinada à execução de scripts CGI.
+      O servidor processa scripts externos e retorna
+      a resposta gerada dinamicamente.
+    </p>
+
+    <div class="info">
+      Diretório: /cgi-bin<br>
+      Scripts suportados: Python, Bash
+    </div>
+
+    <p class="note">
+      Para executar um script, acesse diretamente o ficheiro CGI
+      dentro deste diretório.
+    </p>
+  </div>
+
+</body>
+</html>

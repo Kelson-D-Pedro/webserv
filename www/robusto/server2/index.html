@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>C de Çerver - Web Server</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        color: #333;
+      }
+
+      .header {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 2rem 0;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .header h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.5rem;
+      }
+
+      .header .subtitle {
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 1rem;
+      }
+
+      .team-badge {
+        display: inline-block;
+        background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 25px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+      }
+
+      .container {
+        flex: 1;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 3rem 2rem;
+      }
+
+      .welcome-section {
+        text-align: center;
+        margin-bottom: 4rem;
+      }
+
+      .welcome-title {
+        font-size: 2.5rem;
+        color: white;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .welcome-desc {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 2rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.6;
+      }
+
+      .nav-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .nav-card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 2rem;
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .nav-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .nav-card .icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        display: block;
+      }
+
+      .nav-card h3 {
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+        color: #333;
+      }
+
+      .nav-card p {
+        color: #666;
+        line-height: 1.5;
+        font-size: 0.95rem;
+      }
+
+      .images-card {
+        --accent: #3498db;
+      }
+      .docs-card {
+        --accent: #2ecc71;
+      }
+      .redirect-card {
+        --accent: #f39c12;
+      }
+      .upload-card {
+        --accent: #e74c3c;
+      }
+
+      .nav-card .icon {
+        color: var(--accent);
+      }
+
+      .nav-card:hover h3 {
+        color: var(--accent);
+      }
+
+      .footer {
+        background: rgba(0, 0, 0, 0.2);
+        color: rgba(255, 255, 255, 0.8);
+        text-align: center;
+        padding: 2rem;
+        backdrop-filter: blur(10px);
+      }
+
+      .team-info {
+        margin-bottom: 1rem;
+      }
+
+      .team-members {
+        font-size: 0.9rem;
+        opacity: 0.8;
+      }
+
+      @media (max-width: 768px) {
+        .header h1 {
+          font-size: 2rem;
+        }
+
+        .welcome-title {
+          font-size: 2rem;
+        }
+
+        .nav-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .container {
+          padding: 2rem 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <h1>C de Çerver</h1>
+      <p class="subtitle">Servidor HTTP Configurável em C++98</p>
+      <span class="team-badge">Web Server Project</span>
+    </header>
+
+    <div class="container">
+      <section class="welcome-section">
+        <h2 class="welcome-title">Bem-vindo ao nosso Web Server</h2>
+        <p class="welcome-desc">
+          Esta é a página principal servida pela location "/". Nosso servidor
+          implementa configuração dinâmica similar ao nginx, com validações
+          robustas e pages de erro personalizadas.
+        </p>
+      </section>
+
+      <nav class="nav-grid">
+        <a href="/images" class="nav-card images-card">
+          <span class="icon">🖼️</span>
+          <h3>Galeria de Imagens</h3>
+          <p>
+            Explore nossa galeria de imagens estáticas servidas dinamicamente
+            com MIME types corretos.
+          </p>
+        </a>
+
+        <a href="/documents" class="nav-card docs-card">
+          <span class="icon">📚</span>
+          <h3>Documentação</h3>
+          <p>
+            Acesse a documentação técnica do projeto e guias de implementação.
+          </p>
+        </a>
+
+        <a href="/redirect-me" class="nav-card redirect-card">
+          <span class="icon">↩️</span>
+          <h3>Teste de Redirecionamento</h3>
+          <p>
+            Demonstração do sistema de redirecionamento HTTP 301 implementado.
+          </p>
+        </a>
+
+        <a href="/upload" class="nav-card upload-card">
+          <span class="icon">📤</span>
+          <h3>Área de Upload</h3>
+          <p>
+            Sistema de upload com validação de tamanho configurável por
+            location.
+          </p>
+        </a>
+      </nav>
+    </div>
+
+    <footer class="footer">
+      <div class="team-info">
+        <strong>Desenvolvido por</strong>
+      </div>
+      <div class="team-members">
+        Reinaldo Sambinga • Victor Leonel • Ohana Bento
+      </div>
+    </footer>
+  </body>
+</html>

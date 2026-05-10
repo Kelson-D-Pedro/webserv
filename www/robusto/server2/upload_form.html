@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload de Arquivos - C de Çerver</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+        min-height: 100vh;
+        color: #333;
+      }
+
+      .header {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 1.5rem 0;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .header .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        background: linear-gradient(45deg, #9b59b6, #8e44ad);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-decoration: none;
+      }
+
+      .breadcrumb {
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      .breadcrumb a {
+        color: #9b59b6;
+        text-decoration: none;
+      }
+
+      .breadcrumb a:hover {
+        text-decoration: underline;
+      }
+
+      .main-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 3rem 2rem;
+      }
+
+      .page-title {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .page-title h1 {
+        font-size: 3rem;
+        color: white;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .page-title .icon {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        display: block;
+        filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+      }
+
+      .page-title p {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.6;
+      }
+
+      .upload-form-section {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 3rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .upload-form {
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .form-group {
+        margin-bottom: 2rem;
+      }
+
+      .form-label {
+        display: block;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 0.5rem;
+        font-size: 1.1rem;
+      }
+
+      .file-upload-area {
+        border: 3px dashed #9b59b6;
+        border-radius: 15px;
+        padding: 3rem;
+        text-align: center;
+        background: rgba(155, 89, 182, 0.05);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .file-upload-area:hover {
+        border-color: #8e44ad;
+        background: rgba(155, 89, 182, 0.1);
+        transform: translateY(-2px);
+      }
+
+      .file-upload-area.dragover {
+        border-color: #8e44ad;
+        background: rgba(155, 89, 182, 0.15);
+        transform: scale(1.02);
+      }
+
+      .upload-icon {
+        font-size: 4rem;
+        color: #9b59b6;
+        margin-bottom: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .file-upload-area:hover .upload-icon {
+        transform: scale(1.1);
+      }
+
+      .upload-text {
+        font-size: 1.2rem;
+        color: #333;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+      }
+
+      .upload-subtext {
+        color: #666;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+
+      .file-input {
+        display: none;
+      }
+
+      .file-info {
+        background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+        border: 1px solid #4caf50;
+        border-radius: 10px;
+        padding: 1rem;
+        margin-top: 1rem;
+        display: none;
+      }
+
+      .file-info.show {
+        display: block;
+        animation: slideIn 0.3s ease;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .file-details {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #2e7d32;
+        font-weight: 600;
+      }
+
+      .submit-button {
+        width: 100%;
+        background: linear-gradient(45deg, #9b59b6, #8e44ad);
+        color: white;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(155, 89, 182, 0.3);
+        margin-top: 1rem;
+      }
+
+      .submit-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(155, 89, 182, 0.4);
+      }
+
+      .submit-button:disabled {
+        background: #bdc3c7;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 6px;
+        background: #ecf0f1;
+        border-radius: 3px;
+        margin-top: 1rem;
+        overflow: hidden;
+        display: none;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(45deg, #9b59b6, #8e44ad);
+        width: 0%;
+        transition: width 0.3s ease;
+      }
+
+      .limits-info {
+        background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+        border: 1px solid #f39c12;
+        border-radius: 15px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .limits-title {
+        font-weight: 600;
+        color: #d68910;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .limits-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .limit-item {
+        background: white;
+        padding: 1rem;
+        border-radius: 10px;
+        text-align: center;
+        border-left: 4px solid #f39c12;
+      }
+
+      .limit-item .location {
+        font-weight: bold;
+        color: #f39c12;
+        margin-bottom: 0.5rem;
+      }
+
+      .limit-item .size {
+        font-size: 1.2rem;
+        color: #d68910;
+      }
+
+      .back-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: linear-gradient(45deg, #9b59b6, #8e44ad);
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(155, 89, 182, 0.3);
+      }
+
+      .back-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(155, 89, 182, 0.4);
+      }
+
+      .footer {
+        background: rgba(0, 0, 0, 0.2);
+        color: rgba(255, 255, 255, 0.8);
+        text-align: center;
+        padding: 2rem;
+        backdrop-filter: blur(10px);
+      }
+
+      @media (max-width: 768px) {
+        .page-title h1 {
+          font-size: 2rem;
+        }
+
+        .main-container {
+          padding: 2rem 1rem;
+        }
+
+        .upload-form-section {
+          padding: 2rem;
+        }
+
+        .header .container {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .limits-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <a href="/" class="logo">C de Çerver</a>
+        <nav class="breadcrumb">
+          <a href="/">Início</a> / Upload de Arquivos
+        </nav>
+      </div>
+    </header>
+
+    <div class="main-container">
+      <section class="page-title">
+        <span class="icon">📤</span>
+        <h1>Upload de Arquivos</h1>
+        <p>
+          Faça upload de seus arquivos com segurança. Sistema com validação de
+          tamanho configurável e proteção contra uploads maliciosos.
+        </p>
+      </section>
+
+      <section class="upload-form-section">
+        <form
+          action="/upload"
+          method="POST"
+          enctype="multipart/form-data"
+          class="upload-form"
+          id="uploadForm"
+        >
+          <div class="form-group">
+            <label for="file" class="form-label"
+              >Selecione o arquivo para upload</label
+            >
+            <div class="file-upload-area" id="fileUploadArea">
+              <div class="upload-icon">📁</div>
+              <div class="upload-text">
+                Arraste o arquivo aqui ou clique para selecionar
+              </div>
+              <div class="upload-subtext">
+                Suporte a todos os tipos de arquivo
+              </div>
+              <input
+                type="file"
+                name="file"
+                id="file"
+                class="file-input"
+                accept="*/*"
+              />
+            </div>
+            <div class="file-info" id="fileInfo">
+              <div class="file-details">
+                <span id="fileName"></span>
+                <span id="fileSize"></span>
+              </div>
+            </div>
+            <div class="progress-bar" id="progressBar">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="submit-button"
+            id="submitButton"
+            disabled
+          >
+            Fazer Upload
+          </button>
+        </form>
+      </section>
+
+      <section class="limits-info">
+        <div class="limits-title">
+          <span>⚠️</span>
+          Limites de Upload por Location
+        </div>
+        <div class="limits-grid">
+          <div class="limit-item">
+            <div class="location">Global</div>
+            <div class="size">1MB</div>
+          </div>
+          <div class="limit-item">
+            <div class="location">/upload</div>
+            <div class="size">500K</div>
+          </div>
+          <div class="limit-item">
+            <div class="location">/images</div>
+            <div class="size">2MB</div>
+          </div>
+          <div class="limit-item">
+            <div class="location">Servidor</div>
+            <div class="size">10MB</div>
+          </div>
+        </div>
+      </section>
+
+      <div style="text-align: center">
+        <a href="/" class="back-button">
+          <span>←</span>
+          Voltar ao Início
+        </a>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div>
+        <strong>C de Çerver Web Server</strong><br />
+        Reinaldo Sambinga • Victor Leonel • Ohana Bento
+      </div>
+    </footer>
+
+    <script>
+      const fileInput = document.getElementById("file");
+      const fileUploadArea = document.getElementById("fileUploadArea");
+      const fileInfo = document.getElementById("fileInfo");
+      const fileName = document.getElementById("fileName");
+      const fileSize = document.getElementById("fileSize");
+      const submitButton = document.getElementById("submitButton");
+      const uploadForm = document.getElementById("uploadForm");
+      const progressBar = document.getElementById("progressBar");
+      const progressFill = document.getElementById("progressFill");
+
+      // Eventos de drag and drop
+      fileUploadArea.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        fileUploadArea.classList.add("dragover");
+      });
+
+      fileUploadArea.addEventListener("dragleave", () => {
+        fileUploadArea.classList.remove("dragover");
+      });
+
+      fileUploadArea.addEventListener("drop", (e) => {
+        e.preventDefault();
+        fileUploadArea.classList.remove("dragover");
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+          handleFileSelection(files[0]);
+        }
+      });
+
+      // Click para selecionar arquivo
+      fileUploadArea.addEventListener("click", () => {
+        fileInput.click();
+      });
+
+      fileInput.addEventListener("change", (e) => {
+        if (e.target.files.length > 0) {
+          handleFileSelection(e.target.files[0]);
+        }
+      });
+
+      function handleFileSelection(file) {
+        const maxSize = 500 * 1024; // 500K em bytes
+        const sizeInKB = (file.size / 1024).toFixed(1);
+
+        fileName.textContent = file.name;
+        fileSize.textContent = `${sizeInKB}K`;
+
+        if (file.size > maxSize) {
+          fileInfo.style.background =
+            "linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%)";
+          fileInfo.style.borderColor = "#f44336";
+          fileSize.style.color = "#d32f2f";
+          fileSize.textContent += " (Muito grande!)";
+          submitButton.disabled = true;
+        } else {
+          fileInfo.style.background =
+            "linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%)";
+          fileInfo.style.borderColor = "#4caf50";
+          fileSize.style.color = "#2e7d32";
+          submitButton.disabled = false;
+        }
+
+        fileInfo.classList.add("show");
+      }
+
+      // Simulação de upload com progress bar
+      uploadForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        if (fileInput.files.length === 0) {
+          alert("Selecione um arquivo primeiro!");
+          return;
+        }
+
+        submitButton.disabled = true;
+        submitButton.textContent = "Fazendo Upload...";
+        progressBar.style.display = "block";
+
+        // Simula progress
+        let progress = 0;
+        const interval = setInterval(() => {
+          progress += Math.random() * 20;
+          if (progress >= 100) {
+            progress = 100;
+            clearInterval(interval);
+
+            setTimeout(() => {
+              alert("Upload realizado com sucesso! (Simulação)");
+              submitButton.textContent = "Fazer Upload";
+              submitButton.disabled = false;
+              progressBar.style.display = "none";
+              fileInfo.classList.remove("show");
+              fileInput.value = "";
+              progressFill.style.width = "0%";
+            }, 500);
+          }
+          progressFill.style.width = progress + "%";
+        }, 200);
+      });
+    </script>
+  </body>
+</html>

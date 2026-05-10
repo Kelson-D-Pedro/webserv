@@ -1,0 +1,6 @@
+{
+  "timestamp": "2026-02-03T12:12:58+01:00",
+  "passed": 19,
+  "failed": 0,
+  "logs": ["/home/mebo/webserv/test_logs/robusto.log", "/home/mebo/webserv/test_logs/autoindex.log", "/home/mebo/webserv/test_logs/badcgi.log"]
+}

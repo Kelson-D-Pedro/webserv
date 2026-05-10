@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebServer do Çinco Elengo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        /* Header/Navbar */
+        .header {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-top {
+            background: #003d82;
+            padding: 0.5rem 0;
+        }
+
+        .header-top-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+
+        .header-top-left {
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .flag {
+            font-size: 1.2rem;
+        }
+
+        .header-top-right {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: opacity 0.3s;
+        }
+
+        .social-link:hover {
+            opacity: 0.7;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: #003d82;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+        }
+
+        .logo-text h1 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #003d82;
+        }
+
+        .logo-text p {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: #e1000f;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #003d82 0%, #0055b8 100%);
+            color: white;
+            padding: 4rem 2rem;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            background: #e1000f;
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .hero-cta:hover {
+            background: #b3000c;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(225, 0, 15, 0.3);
+        }
+
+        .hero-image {
+            text-align: center;
+            font-size: 10rem;
+        }
+
+        /* Features Section */
+        .features {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: #003d82;
+            margin-bottom: 3rem;
+            font-weight: 700;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s;
+            border-top: 4px solid #003d82;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            color: #003d82;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .feature-path {
+            display: inline-block;
+            background: #f0f4f8;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            color: #003d82;
+            margin-top: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Stats Section */
+        .stats {
+            background: linear-gradient(135deg, #003d82 0%, #0055b8 100%);
+            color: white;
+            padding: 3rem 2rem;
+            margin: 4rem 0;
+        }
+
+        .stats-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 1rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a1a;
+            color: #fff;
+            padding: 3rem 2rem 1.5rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: #e1000f;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 2;
+            display: block;
+        }
+
+        .footer-section a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            text-align: center;
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h2 {
+                font-size: 2rem;
+            }
+
+            .hero-image {
+                font-size: 6rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .navbar {
+                justify-content: center;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="header-top-content">
+                <div class="header-top-left">
+                    <span class="flag">🇦🇴</span>
+                    <span>42 Luanda | Angola</span>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="navbar">
+            <a href="/" class="logo">
+                <span class="logo-icon">🌐</span>
+                <div class="logo-text">
+                    <h1>WebServer</h1>
+                    <p>Çinco Elengo Project</p>
+                </div>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="/">Início</a></li>
+                <li><a href="/upload">Upload</a></li>
+                <li><a href="/api">API</a></li>
+                <li><a href="/cgi-bin">Scripts CGI</a></li>
+                <li><a href="/bonus">Página de Cookies (bonus)</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h2>Bem-vindo ao WebServer</h2>
+                <p>
+                    Um servidor web moderno e robusto desenvolvido em C++98. 
+                    Explore as funcionalidades disponíveis e teste as capacidades 
+                    do nosso servidor HTTP.
+                </p>
+                <a href="/upload" class="hero-cta">Começar Exploração →</a>
+            </div>
+            <div class="hero-image">
+                🚀
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2 class="section-title">Funcionalidades Disponíveis</h2>
+        
+        <div class="features-grid">
+            <a href="/upload" class="feature-card">
+                <div class="feature-icon">📤</div>
+                <h3>Upload de Ficheiros</h3>
+                <p>Faça upload de ficheiros de forma simples e segura através da nossa interface intuitiva.</p>
+                <span class="feature-path">/upload</span>
+            </a>
+
+            <a href="/api" class="feature-card">
+                <div class="feature-icon">📂</div>
+                <h3>Navegação de Diretórios</h3>
+                <p>Explore a estrutura de diretórios com autoindex habilitado para visualização clara.</p>
+                <span class="feature-path">/api</span>
+            </a>
+
+            <a href="/cgi-bin" class="feature-card">
+                <div class="feature-icon">⚙️</div>
+                <h3>Scripts CGI</h3>
+                <p>Execute scripts Python e Bash através do Common Gateway Interface (CGI).</p>
+                <span class="feature-path">/cgi-bin</span>
+            </a>
+
+            <a href="/redirect" class="feature-card">
+                <div class="feature-icon">↗️</div>
+                <h3>Redirecionamento HTTP</h3>
+                <p>Teste o sistema de redirecionamento automático de páginas HTTP.</p>
+                <span class="feature-path">/redirect → /teste</span>
+            </a>
+
+            <a href="/teste" class="feature-card">
+                <div class="feature-icon">🧪</div>
+                <h3>Página de Teste</h3>
+                <p>Página de destino para testar redirecionamentos e outras funcionalidades.</p>
+                <span class="feature-path">/teste</span>
+            </a>
+
+            <a href="/bonus" class="feature-card" style="border-top-color: #e1000f;">
+                <div class="feature-icon">📊</div>
+                <h3>Gerenciamento de Cookies e sessão</h3>
+                <p>Monitorize o estado e performance do servidor em tempo real.</p>
+                <span class="feature-path">Em desenvolvimento</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-content">
+            <div class="stat-item">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Rotas Disponíveis</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">C++98</div>
+                <div class="stat-label">Standard Utilizado</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">HTTP/1.1</div>
+                <div class="stat-label">Protocolo</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">CGI</div>
+                <div class="stat-label">Interface Suportada</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Sobre o Projeto</h4>
+                <p>
+                    WebServer desenvolvido como parte do projeto Çinco Elengo. 
+                    Implementação completa de um servidor HTTP em C++98.
+                </p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Rotas Principais</h4>
+                <a href="/">Página Inicial</a>
+                <a href="/upload">Upload de Ficheiros</a>
+                <a href="/api">API & Autoindex</a>
+                <a href="/cgi-bin">Scripts CGI</a>
+                <a href="/redirect">Redirecionamento</a>
+            </div>
+            
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Çinco Elengo WebServer Project. 42 Luanda</p>
+        </div>
+    </footer>
+</body>
+</html>
